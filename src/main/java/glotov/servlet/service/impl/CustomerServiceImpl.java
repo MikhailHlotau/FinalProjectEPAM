@@ -1,16 +1,51 @@
 package glotov.servlet.service.impl;
 
+import glotov.servlet.dao.CustomerDao;
+import glotov.servlet.dao.iml.CustomerDaoImpl;
+import glotov.servlet.model.Customer;
 import glotov.servlet.service.CustomerService;
+import java.sql.SQLException;
+import java.util.List;
 
-public class UserServiceImpl implements CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
-    private static final UserServiceImpl instance = new UserServiceImpl();
+    private static final CustomerServiceImpl instance;
 
-    private UserServiceImpl() {
+    static {
+        try {
+            instance = new CustomerServiceImpl();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static UserServiceImpl getInstance() {
+    private final CustomerDao customerDao;
+
+    private CustomerServiceImpl() throws SQLException, ClassNotFoundException {
+        this.customerDao = new CustomerDaoImpl();
+    }
+    public static CustomerServiceImpl getInstance() {
         return instance;
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() {
+        return customerDao.getAllCustomers();
+    }
+
+    @Override
+    public void banCustomer(int customerId) {
+        customerDao.banCustomer(customerId);
+    }
+
+    @Override
+    public void addBonusPoints(int customerId, int points) {
+        customerDao.addBonusPoints(customerId, points);
+    }
+
+    @Override
+    public void addLoyaltyPoints(int customerId, int points) {
+        customerDao.addLoyaltyPoints(customerId, points);
     }
 
     @Override

@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8be7693-1171-401c-99d6-dd348cef8594" name="Changes" comment="" />
+    <list default="true" id="a8be7693-1171-401c-99d6-dd348cef8594" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/CommandType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddBonusToCustomerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddBonusToCustomerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddLoyaltyPointsToCustomerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddLoyaltyPointsToCustomerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddMenuItemCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddMenuItemCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/BanCustomerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/BanCustomerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/CalculatePriceCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/CalculatePriceCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/CancelOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/CancelOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/DefaultCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/DefaultCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LeaveReviewCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LeaveReviewCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LogoutCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/PayOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/PayOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/PlaceOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/PlaceOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/RateOrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/RateOrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/RemoveMenuItemCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/RemoveMenuItemCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/connection/AbstractConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/connection/AbstractConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/CustomerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/CustomerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/MenuDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/MenuDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/ReviewDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/ReviewDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/CustomerDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/CustomerDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/MenuDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/MenuDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/OrderDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/ReviewDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/ReviewDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/repository/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/MenuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/MenuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/PageName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/PageName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/RequestAttributeName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/RequestAttributeName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/RequestParameterName.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/util/RequestParameterName.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2S3bAhubD9N1kdzgNZllYF4DTT1" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -20,10 +90,50 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.37241378",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="glotov.servlet.command.impl" />
+      <recent name="glotov.servlet.command" />
+      <recent name="glotov.servlet.controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat" type="com.poratu.idea.plugins.tomcat">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="contextPath" value="/FinalProjectEPAM" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="extraClassPath" value="" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/10.1.10" />
+          <option name="path" value="$USER_HOME$/apache-tomcat-10.1.10" />
+          <option name="version" value="10.1.10.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <module name="FinalProjectEPAM" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -34,5 +144,20 @@
       <updated>1688378071403</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

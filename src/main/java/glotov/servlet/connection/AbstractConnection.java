@@ -12,7 +12,7 @@ public class AbstractConnection {
     private static final String URL = "jdbc:mysql://127.0.0.1:3307/cinema";
     private static final String USER_NAME = "root";
     private static final String PASSWORD = "1234";
-    private static final  String DRIVER_NAME = "com.mysql.jdbc.Driver";
+    private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
     private static Connection conn = null;
 
     public static Connection connect() throws ClassNotFoundException, SQLException {
@@ -23,12 +23,10 @@ public class AbstractConnection {
         return conn;
     }
 
-    public static void close() throws SQLException{
-        if(conn!=null){
+    public static void close() throws SQLException {
+        if (conn != null) {
             conn.close();
-            conn=null;
+            conn = null;
         }
     }
-
 }
-
