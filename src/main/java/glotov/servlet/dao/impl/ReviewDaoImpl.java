@@ -1,4 +1,4 @@
-package glotov.servlet.dao.iml;
+package glotov.servlet.dao.impl;
 
 import glotov.servlet.dao.ReviewDao;
 import glotov.servlet.model.Review;

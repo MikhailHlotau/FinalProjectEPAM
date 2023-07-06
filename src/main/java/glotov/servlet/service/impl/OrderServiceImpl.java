@@ -1,7 +1,7 @@
 package glotov.servlet.service.impl;
 
 import glotov.servlet.dao.OrderDao;
-import glotov.servlet.dao.iml.OrderDaoImpl;
+import glotov.servlet.dao.impl.OrderDaoImpl;
 import glotov.servlet.model.Order;
 import glotov.servlet.service.OrderService;
 import java.util.List;

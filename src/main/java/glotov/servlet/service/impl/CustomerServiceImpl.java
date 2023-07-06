@@ -1,7 +1,7 @@
 package glotov.servlet.service.impl;
 
 import glotov.servlet.dao.CustomerDao;
-import glotov.servlet.dao.iml.CustomerDaoImpl;
+import glotov.servlet.dao.impl.CustomerDaoImpl;
 import glotov.servlet.model.Customer;
 import glotov.servlet.service.CustomerService;
 import java.sql.SQLException;

@@ -1,7 +1,7 @@
 package glotov.servlet.service.impl;
 
 import glotov.servlet.dao.ReviewDao;
-import glotov.servlet.dao.iml.ReviewDaoImpl;
+import glotov.servlet.dao.impl.ReviewDaoImpl;
 import glotov.servlet.model.Review;
 import glotov.servlet.service.ReviewService;
 

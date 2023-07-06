@@ -1,7 +1,7 @@
 package glotov.servlet.service.impl;
 
 import glotov.servlet.dao.MenuDao;
-import glotov.servlet.dao.iml.MenuDaoImpl;
+import glotov.servlet.dao.impl.MenuDaoImpl;
 import glotov.servlet.model.MenuItem;
 import glotov.servlet.service.MenuService;
 import java.util.List;
