@@ -5,16 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8be7693-1171-401c-99d6-dd348cef8594" name="Changes" comment="06.07.2023">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/FindAllCustomersCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/connection/ConnectionPool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/connection/ProxyConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/mapper/CustomerMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/exception/CommandException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/exception/DaoException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/exception/ServiceException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/pages/customers.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/CustomerDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/impl/CustomerDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/MenuDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/impl/MenuDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/impl/OrderDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/iml/ReviewDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/impl/ReviewDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/CommandType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddBonusToCustomerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddBonusToCustomerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddLoyaltyPointsToCustomerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/AddLoyaltyPointsToCustomerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/BanCustomerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/BanCustomerCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/command/impl/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/CustomerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/CustomerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/impl/CustomerDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/dao/impl/CustomerDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/model/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/repository/Repository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/CustomerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/CustomerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/MenuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/MenuServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/glotov/servlet/service/impl/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/main.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688655562014</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="06.07.2023">
+      <created>1688664349378</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1688664349378</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

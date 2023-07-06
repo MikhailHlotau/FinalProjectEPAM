@@ -6,6 +6,11 @@
     <style>
         body {
             background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
             font-family: Arial, sans-serif;
         }
@@ -13,6 +18,7 @@
         h1 {
             color: #336699;
             font-size: 32px;
+            margin: 0;
         }
 
         form {

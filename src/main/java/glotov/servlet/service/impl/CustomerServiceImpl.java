@@ -4,33 +4,31 @@ import glotov.servlet.dao.CustomerDao;
 import glotov.servlet.dao.impl.CustomerDaoImpl;
 import glotov.servlet.model.Customer;
 import glotov.servlet.service.CustomerService;
-import java.sql.SQLException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
+
 public class CustomerServiceImpl implements CustomerService {
-
-    private static final CustomerServiceImpl instance;
-
-    static {
-        try {
-            instance = new CustomerServiceImpl();
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static final Logger logger = LogManager.getLogger();
+    private static final CustomerServiceImpl instance = new CustomerServiceImpl();
 
     private final CustomerDao customerDao;
 
-    private CustomerServiceImpl() throws SQLException, ClassNotFoundException {
-        this.customerDao = new CustomerDaoImpl();
+    private CustomerServiceImpl() {
+        this.customerDao = CustomerDaoImpl.getInstance();
     }
+
     public static CustomerServiceImpl getInstance() {
         return instance;
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        return customerDao.getAllCustomers();
+    public List<Customer> findAllCustomers() {
+        logger.log(Level.INFO, "Выполнен метод findAllCustomers() CustomerServiceImpl");
+        return customerDao.findAllCustomers();
     }
 
     @Override
@@ -49,7 +47,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean authenticate(String userName, String password){
-        return userName.equals(password);
+    public boolean authenticate(String login, String password) {
+        logger.log(Level.INFO, "Выполнен метод authenticate() CustomerServiceImpl");
+        return customerDao.authenticate(login, password);
     }
 }

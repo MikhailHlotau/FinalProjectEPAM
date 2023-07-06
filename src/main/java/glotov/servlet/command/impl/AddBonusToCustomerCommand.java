@@ -1,10 +1,10 @@
 package glotov.servlet.command.impl;
 
 import glotov.servlet.command.Command;
+import glotov.servlet.exception.ServiceException;
 import glotov.servlet.service.CustomerService;
 import glotov.servlet.service.impl.CustomerServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-
 import static glotov.servlet.util.PageName.ADMIN_CUSTOMERS_PAGE;
 import static glotov.servlet.util.RequestAttributeName.BONUS_POINTS;
 import static glotov.servlet.util.RequestAttributeName.CUSTOMER_ID;
@@ -20,7 +20,11 @@ public class AddBonusToCustomerCommand implements Command {
     public String execute(HttpServletRequest request) {
         int customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
         int bonusPoints = Integer.parseInt(request.getParameter(BONUS_POINTS));
-        customerService.addBonusPoints(customerId, bonusPoints);
+        try {
+            customerService.addBonusPoints(customerId, bonusPoints);
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
         return ADMIN_CUSTOMERS_PAGE;
     }
 }

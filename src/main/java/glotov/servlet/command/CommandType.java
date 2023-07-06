@@ -1,6 +1,9 @@
 package glotov.servlet.command;
 
 import glotov.servlet.command.impl.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public enum CommandType {
     LOGIN(new LoginCommand()),
@@ -16,8 +19,9 @@ public enum CommandType {
     ADD_LOYALTY_POINTS_TO_CUSTOMER(new AddLoyaltyPointsToCustomerCommand()),
     RATE_ORDER(new RateOrderCommand()),
     LEAVE_REVIEW(new LeaveReviewCommand()),
+    FIND_ALL_CUSTOMERS(new FindAllCustomersCommand()),
     CANSEL_ORDER(new CancelOrderCommand());
-
+    private static final Logger logger = LogManager.getLogger();
     final Command command;
 
     CommandType(Command command) {
@@ -30,6 +34,7 @@ public enum CommandType {
             try {
                 CommandType commandType = CommandType.valueOf(commandStr.toUpperCase());
                 command = commandType.command;
+                logger.log(Level.INFO, "Выполнен метод define() CommandType");
             } catch (IllegalArgumentException e) {
                 command = DEFAULT.command;
             }

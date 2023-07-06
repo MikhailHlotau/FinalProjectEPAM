@@ -1,6 +1,7 @@
 package glotov.servlet.command.impl;
 
 import glotov.servlet.command.Command;
+import glotov.servlet.exception.ServiceException;
 import glotov.servlet.service.CustomerService;
 import glotov.servlet.service.impl.CustomerServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,11 @@ public class BanCustomerCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         int customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
-        customerService.banCustomer(customerId);
+        try {
+            customerService.banCustomer(customerId);
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
         return ADMIN_CUSTOMERS_PAGE;
     }
 }
