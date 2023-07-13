@@ -1,12 +1,15 @@
 package glotov.servlet.connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
-    private final Connection connection;
+    private static Logger logger = LogManager.getLogger();
+    private Connection connection;
 
     ProxyConnection(Connection connection) {
         this.connection = connection;
@@ -53,14 +56,15 @@ public class ProxyConnection implements Connection {
     }
 
     @Override
-    public void close() {
+    public void close() throws SQLException {
         ConnectionPool.getInstance().releaseConnection(this);
     }
-    void isReallyClose(){
+
+    void ReallyClose() {
         try {
             connection.close();
         } catch (SQLException e) {
-            throw new ExceptionInInitializerError(e.getMessage());
+            logger.error("Error closing connections" + e.getMessage());
         }
     }
 
@@ -310,13 +314,12 @@ public class ProxyConnection implements Connection {
     }
 
     @Override
-    public <T> T unwrap(Class<T> iface) {
+    public <T> T unwrap(Class<T> iface) throws SQLException {
         return null;
     }
 
     @Override
-    public boolean isWrapperFor(Class<?> iface) {
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
         return false;
     }
-
 }

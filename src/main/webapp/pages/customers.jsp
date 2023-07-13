@@ -44,6 +44,7 @@
             <th>Phone</th>
             <th>Email</th>
             <th>Password</th>
+            <th>Role</th>
             <th>Banned</th>
             <th>Bonus Points</th>
             <th>Loyalty Points</th>
@@ -56,6 +57,7 @@
                 <td><%= customer.getPhone() %></td>
                 <td><%= customer.getEmail() %></td>
                 <td><%= customer.getPassword() %></td>
+                <td><%= customer.getRole() %></td>
                 <td><%= customer.isBanned() %></td>
                 <td><%= customer.getBonusPoints() %></td>
                 <td><%= customer.getLoyaltyPoints() %></td>

@@ -16,17 +16,17 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
-    private static final Logger logger = LogManager.getLogger();
-    private static final int POOL_SIZE = 10;
-    private static final Lock lock = new ReentrantLock(true);  // Блокировка для обеспечения потокобезопасности
-    private static final AtomicBoolean isCreated = new AtomicBoolean(false);  // Флаг, показывающий, создан ли уже экземпляр пула соединений
-    private static ConnectionPool instance;  // Единственный экземпляр пула соединений
-    private final BlockingQueue<Connection> freeConnections;  // Очередь свободных соединений
-    private final Queue<Connection> givenAwayConnections;  // Очередь активных соединений
+    private static Logger logger = LogManager.getLogger();
+    private static final int POOL_SIZE = 100;
+    private static Lock lock = new ReentrantLock(true);
+    private static AtomicBoolean isCreated = new AtomicBoolean(false);
+    private static ConnectionPool instance;
+    private BlockingQueue<ProxyConnection> freeConnections;
+    private Queue<ProxyConnection> givenAwayConnections;
 
     static {
         try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());  // Регистрация JDBC-драйвера
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -35,17 +35,18 @@ public class ConnectionPool {
     private ConnectionPool() {
         Properties prop = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("database.properties")) {
-            prop.load(input);  // Загрузка настроек базы данных из файла database.properties
+            prop.load(input);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load database.properties", e);
+            logger.log(Level.ERROR, "Failed to load database.properties");
+            throw new ExceptionInInitializerError(e);
         }
-        freeConnections = new LinkedBlockingQueue<>(POOL_SIZE);  // Создание очереди свободных соединений
-        givenAwayConnections = new ArrayDeque<>();  // Создание очереди активных соединений
+        freeConnections = new LinkedBlockingQueue<>(POOL_SIZE);
+        givenAwayConnections = new ArrayDeque<>();
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
-                Connection connection = DriverManager.getConnection(prop.getProperty("url"), prop);  // Создание соединения с базой данных
-                ProxyConnection proxyConnection = new ProxyConnection(connection);  // Создание прокси-соединения
-                freeConnections.add(proxyConnection);  // Добавление прокси-соединения в очередь свободных соединений
+                Connection connection = DriverManager.getConnection(prop.getProperty("url"), prop);
+                ProxyConnection proxyConnection = new ProxyConnection(connection);
+                freeConnections.add(proxyConnection);
             } catch (SQLException e) {
                 logger.log(Level.FATAL, "Couldn't create connection to database" + e);
                 throw new ExceptionInInitializerError(e.getMessage());
@@ -58,9 +59,8 @@ public class ConnectionPool {
             try {
                 lock.lock();
                 if (!isCreated.get()) {
-                    instance = new ConnectionPool();  // Создание единственного экземпляра пула соединений
+                    instance = new ConnectionPool();
                     isCreated.set(true);
-                    logger.log(Level.INFO, "Выполнен метод getInstance() ConnectionPool");
                 }
             } finally {
                 lock.unlock();
@@ -72,10 +72,9 @@ public class ConnectionPool {
     public Connection getConnection() {
         ProxyConnection proxyConnection = null;
         try {
-            proxyConnection = (ProxyConnection) freeConnections.take();  // Извлечение соединения из очереди свободных соединений
+            proxyConnection = freeConnections.take();
             logger.log(Level.DEBUG, "Gave connection" + proxyConnection);
-            givenAwayConnections.offer(proxyConnection);  // Добавление соединения в очередь активных соединений
-            logger.log(Level.INFO, "Выполнен метод getConnection() ConnectionPool");
+            givenAwayConnections.offer(proxyConnection);
         } catch (InterruptedException e) {
             logger.log(Level.ERROR, "InterruptedException in method getConnection " + e.getMessage());
             Thread.currentThread().interrupt();
@@ -83,23 +82,25 @@ public class ConnectionPool {
         return proxyConnection;
     }
 
-    public void releaseConnection(Connection connection) {
+    public boolean releaseConnection(Connection connection) {
         if (!connection.getClass().equals(ProxyConnection.class)) {
             logger.log(Level.ERROR, "Attempt to release a non-proxy connection ");
-            throw new IllegalArgumentException();
+            return false;
         }
-        givenAwayConnections.remove(connection);  // Удаление соединения из очереди активных соединений
+        givenAwayConnections.remove(connection);
         try {
-            freeConnections.put(connection);  // Добавление соединения обратно в очередь свободных соединений
+            freeConnections.put((ProxyConnection) connection);
         } catch (InterruptedException e) {
             logger.log(Level.ERROR, "InterruptedException in method releaseConnection " + e.getMessage());
         }
+
+        return true;
     }
 
-    public static void deregister() {
+    public static void deregister() throws SQLException {
         DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {
-                DriverManager.deregisterDriver(driver);  // Отмена регистрации всех JDBC-драйверов
+                DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {
                 logger.error("Error deregistering driver" + e.getMessage());
             }
@@ -109,9 +110,8 @@ public class ConnectionPool {
     public void destroyPool() {
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
-                ProxyConnection proxyConnection = (ProxyConnection) freeConnections.take();
-                proxyConnection.isReallyClose();  // Закрытие реального соединения
-                logger.log(Level.INFO, "Выполнен метод destroyPool() ConnectionPool");
+                ProxyConnection proxyConnection = freeConnections.take();
+                proxyConnection.ReallyClose();
             } catch (InterruptedException e) {
                 logger.error("Failed destroy pool" + e.getMessage());
             }

@@ -28,11 +28,11 @@ public class LoginCommand implements Command {
         if (!userService.authenticate(login, password)) {
             request.setAttribute(FAILED, LOGIN_FAILED_MESSAGE);
             page = INDEX_PAGE;
-            logger.log(Level.INFO, "Успешное выполнение метода execute(HttpServletRequest request) LoginCommand");
+            logger.log(Level.INFO, "Неуспешное выполнение метода execute(HttpServletRequest request) LoginCommand");
         } else {
             request.setAttribute(USER, login);
             page = MAIN_PAGE;
-            logger.log(Level.INFO, "Неуспешное выполнение метода execute(HttpServletRequest request) LoginCommand");
+            logger.log(Level.INFO, "Успешное выполнение метода execute(HttpServletRequest request) LoginCommand");
         }
         return page;
     }

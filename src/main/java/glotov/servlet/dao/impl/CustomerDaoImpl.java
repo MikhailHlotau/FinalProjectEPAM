@@ -16,29 +16,10 @@ import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
     private static Logger logger = LogManager.getLogger();
-    private final Connection connection;
-    private final PreparedStatement getAllCustomersStatement;
-    private final PreparedStatement banCustomerStatement;
-    private final PreparedStatement addBonusPointsStatement;
-    private final PreparedStatement addLoyaltyPointsStatement;
-    private final PreparedStatement authenticateStatement;
-    private final CustomerMapper customerMapper;
+    private static CustomerMapper customerMapper = new CustomerMapper();
     private static CustomerDaoImpl instance = new CustomerDaoImpl();
 
     private CustomerDaoImpl() {
-        connection = ConnectionPool.getInstance().getConnection();
-        logger.log(Level.INFO, "Создан объект CustomerServiceImpl");
-        try {
-            getAllCustomersStatement = connection.prepareStatement("SELECT * FROM customers");
-            banCustomerStatement = connection.prepareStatement("UPDATE customers SET banned = true WHERE customer_id = ?");
-            addBonusPointsStatement = connection.prepareStatement("UPDATE customers SET bonus_points = bonus_points + ? WHERE customer_id = ?");
-            addLoyaltyPointsStatement = connection.prepareStatement("UPDATE customers SET loyalty_points = loyalty_points + ? WHERE customer_id = ?");
-            authenticateStatement = connection.prepareStatement("SELECT password FROM customers WHERE first_name = ?");
-            customerMapper = new CustomerMapper();
-        } catch (SQLException e) {
-            logger.error("Failed to prepare statements: " + e.getMessage());
-            throw new RuntimeException("Failed to prepare statements", e);
-        }
     }
 
     public static CustomerDaoImpl getInstance() {
@@ -48,17 +29,14 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public List<Customer> findAllCustomers() {
         List<Customer> customerList = new ArrayList<>();
-
-        try {
-            ResultSet resultSet = getAllCustomersStatement.executeQuery();
-
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement getAllCustomersStatement = connection.prepareStatement("SELECT * FROM customers");
+             ResultSet resultSet = getAllCustomersStatement.executeQuery()) {
             while (resultSet.next()) {
-                Customer customer = customerMapper.mapCustomer(resultSet);
+                Customer customer = customerMapper.map(resultSet);
                 customerList.add(customer);
             }
             logger.log(Level.INFO, "Выполнен метод findAllCustomers() CustomerDaoImpl");
-
-            resultSet.close();
         } catch (SQLException e) {
             logger.error("Failed to execute SQL query: " + e.getMessage());
             throw new RuntimeException("Failed to execute SQL query", e);
@@ -69,7 +47,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public void banCustomer(int customerId) {
-        try {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement banCustomerStatement = connection.prepareStatement("UPDATE customers SET banned = true WHERE customer_id = ?")) {
             banCustomerStatement.setInt(1, customerId);
             banCustomerStatement.executeUpdate();
         } catch (SQLException e) {
@@ -80,10 +59,12 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public void addBonusPoints(int customerId, int points) {
-        try {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement addBonusPointsStatement = connection.prepareStatement("UPDATE customers SET bonus_points = bonus_points + ? WHERE customer_id = ?")) {
             addBonusPointsStatement.setInt(1, points);
             addBonusPointsStatement.setInt(2, customerId);
             addBonusPointsStatement.executeUpdate();
+
         } catch (SQLException e) {
             logger.error("Failed to execute SQL query: " + e.getMessage());
             throw new RuntimeException("Failed to execute SQL query", e);
@@ -92,10 +73,13 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public void addLoyaltyPoints(int customerId, int points) {
-        try {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement addLoyaltyPointsStatement = connection.prepareStatement("UPDATE customers SET loyalty_points = loyalty_points + ? WHERE customer_id = ?")) {
+
             addLoyaltyPointsStatement.setInt(1, points);
             addLoyaltyPointsStatement.setInt(2, customerId);
             addLoyaltyPointsStatement.executeUpdate();
+
         } catch (SQLException e) {
             logger.error("Failed to execute SQL query: " + e.getMessage());
             throw new RuntimeException("Failed to execute SQL query", e);
@@ -104,7 +88,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public boolean authenticate(String login, String password) {
-        try {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement authenticateStatement = connection.prepareStatement("SELECT password FROM customers WHERE first_name = ?")) {
             authenticateStatement.setString(1, login);
             try (ResultSet resultSet = authenticateStatement.executeQuery()) {
                 if (resultSet.next()) {

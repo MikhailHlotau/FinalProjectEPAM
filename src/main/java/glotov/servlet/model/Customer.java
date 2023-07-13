@@ -7,6 +7,7 @@ public class Customer {
     private String phone;
     private String email;
     private String password;
+    private Role role;
     private boolean banned;
     private int bonusPoints;
     private int loyaltyPoints;
@@ -18,6 +19,7 @@ public class Customer {
         this.phone = builder.phone;
         this.email = builder.email;
         this.password = builder.password;
+        this.role = builder.role;
         this.banned = builder.banned;
         this.bonusPoints = builder.bonusPoints;
         this.loyaltyPoints = builder.loyaltyPoints;
@@ -47,6 +49,10 @@ public class Customer {
         return password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public boolean isBanned() {
         return banned;
     }
@@ -66,6 +72,7 @@ public class Customer {
         private String phone;
         private String email;
         private String password;
+        private Role role;
         private boolean banned;
         private int bonusPoints;
         private int loyaltyPoints;
@@ -104,6 +111,11 @@ public class Customer {
             return this;
         }
 
+        public Builder setRole(Role role) {
+            this.role = role;
+            return this;
+        }
+
         public Builder setBanned(boolean banned) {
             this.banned = banned;
             return this;
@@ -133,6 +145,7 @@ public class Customer {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 ", banned=" + banned +
                 ", bonusPoints=" + bonusPoints +
                 ", loyaltyPoints=" + loyaltyPoints +
