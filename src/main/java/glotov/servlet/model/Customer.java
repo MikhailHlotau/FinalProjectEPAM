@@ -1,7 +1,7 @@
 package glotov.servlet.model;
-
 public class Customer {
     private int id;
+    private String login;
     private String firstName;
     private String lastName;
     private String phone;
@@ -12,21 +12,15 @@ public class Customer {
     private int bonusPoints;
     private int loyaltyPoints;
 
-    private Customer(Builder builder) {
-        this.id = builder.id;
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
-        this.phone = builder.phone;
-        this.email = builder.email;
-        this.password = builder.password;
-        this.role = builder.role;
-        this.banned = builder.banned;
-        this.bonusPoints = builder.bonusPoints;
-        this.loyaltyPoints = builder.loyaltyPoints;
+    private Customer() {
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String getFirstName() {
@@ -49,6 +43,10 @@ public class Customer {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -65,90 +63,70 @@ public class Customer {
         return loyaltyPoints;
     }
 
-    public static class Builder {
-        private int id;
-        private String firstName;
-        private String lastName;
-        private String phone;
-        private String email;
-        private String password;
-        private Role role;
-        private boolean banned;
-        private int bonusPoints;
-        private int loyaltyPoints;
+    public static class CustomerBuilder {
+        private Customer customer;
 
-        public Builder() {
-            // Установка значений по умолчанию или значения по вашему выбору
+        public CustomerBuilder() {
+            customer = new Customer();
         }
 
-        public Builder setId(int id) {
-            this.id = id;
+        public CustomerBuilder withId(int id) {
+            customer.id = id;
             return this;
         }
 
-        public Builder setFirstName(String firstName) {
-            this.firstName = firstName;
+        public CustomerBuilder withLogin(String login) {
+            customer.login = login;
             return this;
         }
 
-        public Builder setLastName(String lastName) {
-            this.lastName = lastName;
+        public CustomerBuilder withFirstName(String firstName) {
+            customer.firstName = firstName;
             return this;
         }
 
-        public Builder setPhone(String phone) {
-            this.phone = phone;
+        public CustomerBuilder withLastName(String lastName) {
+            customer.lastName = lastName;
             return this;
         }
 
-        public Builder setEmail(String email) {
-            this.email = email;
+        public CustomerBuilder withPhone(String phone) {
+            customer.phone = phone;
             return this;
         }
 
-        public Builder setPassword(String password) {
-            this.password = password;
+        public CustomerBuilder withEmail(String email) {
+            customer.email = email;
             return this;
         }
 
-        public Builder setRole(Role role) {
-            this.role = role;
+        public CustomerBuilder withPassword(String password) {
+            customer.password = password;
             return this;
         }
 
-        public Builder setBanned(boolean banned) {
-            this.banned = banned;
+        public CustomerBuilder withRole(Role role) {
+            customer.role = role;
             return this;
         }
 
-        public Builder setBonusPoints(int bonusPoints) {
-            this.bonusPoints = bonusPoints;
+        public CustomerBuilder withBanned(boolean banned) {
+            customer.banned = banned;
             return this;
         }
 
-        public Builder setLoyaltyPoints(int loyaltyPoints) {
-            this.loyaltyPoints = loyaltyPoints;
+        public CustomerBuilder withBonusPoints(int bonusPoints) {
+            customer.bonusPoints = bonusPoints;
+            return this;
+        }
+
+        public CustomerBuilder withLoyaltyPoints(int loyaltyPoints) {
+            customer.loyaltyPoints = loyaltyPoints;
             return this;
         }
 
         public Customer build() {
-            return new Customer(this);
+            return customer;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", banned=" + banned +
-                ", bonusPoints=" + bonusPoints +
-                ", loyaltyPoints=" + loyaltyPoints +
-                '}';
     }
 }

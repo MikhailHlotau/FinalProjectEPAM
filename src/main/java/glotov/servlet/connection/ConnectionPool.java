@@ -1,14 +1,18 @@
 package glotov.servlet.connection;
 
+
+import glotov.servlet.exception.ServiceException;
+import glotov.servlet.util.PropertiesStreamReader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -16,41 +20,39 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectionPool {
-    private static Logger logger = LogManager.getLogger();
-    private static final int POOL_SIZE = 100;
-    private static Lock lock = new ReentrantLock(true);
-    private static AtomicBoolean isCreated = new AtomicBoolean(false);
+    private static final Logger logger = LogManager.getLogger();
+    private static final int CAPACITY_POOL = 10;
+    private static final String PROPERTIES_FILE_NAME = "database.properties";
+    private static final String DB_URL_PROPERTY = "url";
+    private static final Properties properties = new Properties();
+    private static final Lock lock = new ReentrantLock(true);
+    private static final PropertiesStreamReader propertiesStreamReader = new PropertiesStreamReader();
+    private static final AtomicBoolean isCreated = new AtomicBoolean(false);
     private static ConnectionPool instance;
-    private BlockingQueue<ProxyConnection> freeConnections;
-    private Queue<ProxyConnection> givenAwayConnections;
+    private static String databaseUrl;
+
+    private final BlockingQueue<ProxyConnection> connections = new LinkedBlockingQueue<>(CAPACITY_POOL);
 
     static {
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+            logger.log(Level.FATAL,"Error by registering driver: ", e);
+            throw new ExceptionInInitializerError(e);
         }
     }
 
     private ConnectionPool() {
-        Properties prop = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("database.properties")) {
-            prop.load(input);
-        } catch (IOException e) {
-            logger.log(Level.ERROR, "Failed to load database.properties");
+        try {
+            properties.load(new FileReader(propertiesStreamReader.getFileFromResource(PROPERTIES_FILE_NAME).toFile()));
+        } catch (IOException | ServiceException e) {
+            logger.log(Level.FATAL,"Error loading properties file: ", e);
             throw new ExceptionInInitializerError(e);
         }
-        freeConnections = new LinkedBlockingQueue<>(POOL_SIZE);
-        givenAwayConnections = new ArrayDeque<>();
-        for (int i = 0; i < POOL_SIZE; i++) {
-            try {
-                Connection connection = DriverManager.getConnection(prop.getProperty("url"), prop);
-                ProxyConnection proxyConnection = new ProxyConnection(connection);
-                freeConnections.add(proxyConnection);
-            } catch (SQLException e) {
-                logger.log(Level.FATAL, "Couldn't create connection to database" + e);
-                throw new ExceptionInInitializerError(e.getMessage());
-            }
+        databaseUrl = properties.getProperty(DB_URL_PROPERTY);
+        for (int i = 0; i < CAPACITY_POOL; i++) {
+            Connection connection = createConnection(databaseUrl);
+            connections.add((ProxyConnection) connection);
         }
     }
 
@@ -70,51 +72,50 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() {
-        ProxyConnection proxyConnection = null;
         try {
-            proxyConnection = freeConnections.take();
-            logger.log(Level.DEBUG, "Gave connection" + proxyConnection);
-            givenAwayConnections.offer(proxyConnection);
+            return connections.take();
         } catch (InterruptedException e) {
-            logger.log(Level.ERROR, "InterruptedException in method getConnection " + e.getMessage());
+            logger.log(Level.WARN,"Error by getting connection: ", e);
             Thread.currentThread().interrupt();
+            return null;
         }
-        return proxyConnection;
     }
 
-    public boolean releaseConnection(Connection connection) {
-        if (!connection.getClass().equals(ProxyConnection.class)) {
-            logger.log(Level.ERROR, "Attempt to release a non-proxy connection ");
-            return false;
-        }
-        givenAwayConnections.remove(connection);
-        try {
-            freeConnections.put((ProxyConnection) connection);
-        } catch (InterruptedException e) {
-            logger.log(Level.ERROR, "InterruptedException in method releaseConnection " + e.getMessage());
-        }
-
-        return true;
-    }
-
-    public static void deregister() throws SQLException {
-        DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
+    public void releaseConnection(Connection connection) {
+        if (connection instanceof ProxyConnection proxy) {
             try {
-                DriverManager.deregisterDriver(driver);
-            } catch (SQLException e) {
-                logger.error("Error deregistering driver" + e.getMessage());
+                connections.put(proxy);
+            } catch (InterruptedException e) {
+                logger.log(Level.WARN,"Error closing connection: ", e);
+                Thread.currentThread().interrupt();
             }
-        });
+        }
     }
 
     public void destroyPool() {
-        for (int i = 0; i < POOL_SIZE; i++) {
+        for (ProxyConnection connection : connections) {
             try {
-                ProxyConnection proxyConnection = freeConnections.take();
-                proxyConnection.ReallyClose();
-            } catch (InterruptedException e) {
-                logger.error("Failed destroy pool" + e.getMessage());
+                connection.reallyClose();
+            } catch (Exception e) {
+                logger.log(Level.FATAL,"Error by closing connections: ", e);
+                throw new ExceptionInInitializerError(e);
             }
+        }
+
+        try {
+            DriverManager.deregisterDriver(new com.mysql.cj.jdbc.Driver());
+        } catch (SQLException e) {
+            logger.log(Level.FATAL,"Error unregistering driver: ", e);
+            throw new ExceptionInInitializerError(e);
+        }
+    }
+
+    private Connection createConnection(String url) {
+        try {
+            return new ProxyConnection(DriverManager.getConnection(url, properties));
+        } catch (SQLException e) {
+            logger.log(Level.FATAL,"Error creating connection: ", e);
+            throw new ExceptionInInitializerError(e);
         }
     }
 }

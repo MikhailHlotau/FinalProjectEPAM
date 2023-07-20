@@ -21,7 +21,10 @@ public class AddMenuItemCommand implements Command {
     public String execute(HttpServletRequest request) {
         String name = request.getParameter(MENU_ITEM_NAME);
         double price = Double.parseDouble(request.getParameter(MENU_ITEM_PRICE));
-        MenuItem menuItem = new MenuItem(name, price);
+        MenuItem menuItem = new MenuItem.MenuItemBuilder()
+                .withName(name)
+                .withPrice(price)
+                .build();
         menuService.addMenuItem(menuItem);
         return ADMIN_MENU_PAGE;
     }

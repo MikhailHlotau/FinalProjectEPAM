@@ -1,5 +1,6 @@
 package glotov.servlet.connection;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.sql.*;
@@ -8,13 +9,24 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
-    private static Logger logger = LogManager.getLogger();
-    private Connection connection;
+    static Logger logger = LogManager.getLogger();
+    private final Connection connection;
 
     ProxyConnection(Connection connection) {
         this.connection = connection;
     }
-
+    @Override
+    public void close() {
+        ConnectionPool.getInstance().releaseConnection(this);
+    }
+    void reallyClose() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            logger.log(Level.FATAL,"Error by closing connections: ", e);
+            throw new ExceptionInInitializerError(e);
+        }
+    }
     @Override
     public Statement createStatement() throws SQLException {
         return connection.createStatement();
@@ -55,18 +67,7 @@ public class ProxyConnection implements Connection {
         connection.rollback();
     }
 
-    @Override
-    public void close() throws SQLException {
-        ConnectionPool.getInstance().releaseConnection(this);
-    }
 
-    void ReallyClose() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            logger.error("Error closing connections" + e.getMessage());
-        }
-    }
 
     @Override
     public boolean isClosed() throws SQLException {
@@ -315,11 +316,11 @@ public class ProxyConnection implements Connection {
 
     @Override
     public <T> T unwrap(Class<T> iface) throws SQLException {
-        return null;
+        return connection.unwrap(iface);
     }
 
     @Override
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
-        return false;
+        return connection.isWrapperFor(iface);
     }
 }

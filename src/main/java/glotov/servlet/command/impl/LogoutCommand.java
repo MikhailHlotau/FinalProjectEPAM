@@ -14,3 +14,4 @@ public class LogoutCommand implements Command {
         return INDEX_PAGE;
     }
 }
+

@@ -39,11 +39,11 @@
     <table>
         <tr>
             <th>ID</th>
+            <th>Login</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Phone</th>
             <th>Email</th>
-            <th>Password</th>
             <th>Role</th>
             <th>Banned</th>
             <th>Bonus Points</th>
@@ -52,11 +52,11 @@
         <% for (Customer customer : (List<Customer>) request.getAttribute("customers")) { %>
             <tr>
                 <td><%= customer.getId() %></td>
+                <td><%= customer.getLogin() %></td>
                 <td><%= customer.getFirstName() %></td>
                 <td><%= customer.getLastName() %></td>
                 <td><%= customer.getPhone() %></td>
                 <td><%= customer.getEmail() %></td>
-                <td><%= customer.getPassword() %></td>
                 <td><%= customer.getRole() %></td>
                 <td><%= customer.isBanned() %></td>
                 <td><%= customer.getBonusPoints() %></td>

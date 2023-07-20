@@ -7,46 +7,54 @@ public class MenuItem {
     private String description;
     private double price;
 
-    public MenuItem(String name, String description, double price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
-
-    public MenuItem(String name, double price) {
-        this.name = name;
-        this.price = price;
+    private MenuItem() {
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public static class MenuItemBuilder {
+        private MenuItem menuItem;
+
+        public MenuItemBuilder() {
+            menuItem = new MenuItem();
+        }
+
+        public MenuItemBuilder withId(int id) {
+            menuItem.id = id;
+            return this;
+        }
+
+        public MenuItemBuilder withName(String name) {
+            menuItem.name = name;
+            return this;
+        }
+
+        public MenuItemBuilder withDescription(String description) {
+            menuItem.description = description;
+            return this;
+        }
+
+        public MenuItemBuilder withPrice(double price) {
+            menuItem.price = price;
+            return this;
+        }
+
+        public MenuItem build() {
+            return menuItem;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package glotov.servlet.command.impl;
 
 import glotov.servlet.command.Command;
+import glotov.servlet.exception.DaoException;
 import glotov.servlet.exception.ServiceException;
 import glotov.servlet.service.CustomerService;
 import glotov.servlet.service.impl.CustomerServiceImpl;
@@ -21,7 +22,7 @@ public class BanCustomerCommand implements Command {
         int customerId = Integer.parseInt(request.getParameter(CUSTOMER_ID));
         try {
             customerService.banCustomer(customerId);
-        } catch (ServiceException e) {
+        } catch (ServiceException | DaoException e) {
             throw new RuntimeException(e);
         }
         return ADMIN_CUSTOMERS_PAGE;

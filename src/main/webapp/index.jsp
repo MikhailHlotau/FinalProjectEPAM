@@ -39,9 +39,11 @@
             height: 30px;
             padding: 5px;
             font-size: 16px;
+            margin-bottom: 10px;
         }
 
-        input[type="submit"] {
+        input[type="submit"],
+        .register-button {
             margin-top: 10px;
             width: 100px;
             height: 40px;
@@ -57,11 +59,15 @@
             font-size: 24px;
             margin-top: 10px;
         }
+
+        .register-link {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Cafe "U Mihaila"</h1>
-    <form action="controller" method="GET">
+    <form action="controller" method="POST">
         <input type="hidden" name="command" value="login"/>
         <div>
             <label for="login">Login:</label>
@@ -76,5 +82,10 @@
         </div>
         <div class="failed">${failed}</div>
     </form>
+    <div class="register-link">
+        <form action="pages/registration.jsp">
+            <input type="submit"  value="Register">
+        </form>
+    </div>
 </body>
 </html>
